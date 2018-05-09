@@ -32,7 +32,7 @@ def print(students)
 end
 
 def print_footer(names)
-  puts "Overall, we have #{names.count} great student"
+  puts "Overall, we have #{names.count} great student".center(50)
 end
 
 def input_students
@@ -44,8 +44,14 @@ def input_students
   name = gets.chomp
   # while the name is not empty, repeat this code
   while !name.empty? do
+    puts "Please enter a Cohort for #{name}"
+    cohort = gets.chomp
+    if cohort.empty?
+      cohort = :november
+      # if there is typo in cohort then we can create a list of months and match what user inputs and pick the closest match
+    end
     #add student hash to the array
-    students.push({name: name, cohort: :november, hobbies: [], COB: :canada, height: rand(7)})
+    students.push({name: name, cohort: cohort, hobbies: [], COB: :canada, height: rand(7)})
     puts "Now we have #{students.count} students"
     # get another name
     name = gets.chomp
