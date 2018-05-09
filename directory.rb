@@ -18,8 +18,13 @@ def print_header
 end
 
 def print(students)
-  students.each do |student|
-    puts "#{student[:name]} (#{student[:cohort]})"
+  puts "Please enter a letter to filter students by"
+  letter = gets.chomp
+
+  students.each.with_index(1) do |student, i|
+    if letter == student[:name][0] && student[:name].size < 12
+      puts "#{i}. #{student[:name]} (#{student[:cohort]})"
+    end
   end
 end
 
