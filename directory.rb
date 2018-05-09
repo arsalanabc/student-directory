@@ -45,7 +45,7 @@ def input_students
   # while the name is not empty, repeat this code
   while !name.empty? do
     #add student hash to the array
-    students.push({name: name, cohort: :november})
+    students.push({name: name, cohort: :november, hobbies: [], COB: :canada, height: rand(7)})
     puts "Now we have #{students.count} students"
     # get another name
     name = gets.chomp
