@@ -20,12 +20,15 @@ end
 def print(students)
   puts "Please enter a letter to filter students by"
   letter = gets.chomp
-
-  students.each.with_index(1) do |student, i|
-    if letter == student[:name][0] && student[:name].size < 12
-      puts "#{i}. #{student[:name]} (#{student[:cohort]})"
+  i = 0
+  while i < students.length do
+    if letter == students[i][:name][0] && students[i][:name].size < 12
+      puts "#{i}. #{students[i][:name]} (#{students[i][:cohort]})"
     end
+    i += 1
   end
+
+
 end
 
 def print_footer(names)
