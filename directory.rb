@@ -23,7 +23,7 @@ def print(students)
   i = 0
   while i < students.length do
     if letter == students[i][:name][0] && students[i][:name].size < 12
-      puts "#{i}. #{students[i][:name]} (#{students[i][:cohort]})"
+      puts "#{i}. #{students[i][:name]} (#{students[i][:cohort]})".center(50)
     end
     i += 1
   end
