@@ -60,8 +60,27 @@ def input_students
   students
 end
 
+def group_by_cohort(students)
+  category = "cohort".to_sym
+  new_hash = {}
+
+  students.each do |row|
+
+    if !new_hash[row[category]]
+      new_hash[row[category]] = []
+    end
+    new_hash[row[category]].push(row["name".to_sym])
+  end
+
+  new_hash.each do |row|
+    puts row
+  end
+
+end
+
 #calling the methods
 students = input_students
 print_header
 print(students)
 print_footer(students)
+group_by_cohort(students)
