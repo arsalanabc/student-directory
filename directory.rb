@@ -52,7 +52,11 @@ def input_students
     end
     #add student hash to the array
     students.push({name: name, cohort: cohort, hobbies: [], COB: :canada, height: rand(7)})
-    puts "Now we have #{students.count} students"
+    if students.count < 2
+      puts "Now we have #{students.count} student"
+    else
+      puts "Now we have #{students.count} students"
+    end
     # get another name
     name = gets.chomp
   end
