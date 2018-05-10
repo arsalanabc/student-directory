@@ -18,6 +18,10 @@ def print_header
 end
 
 def print(students)
+  if students.length == 0
+    return
+
+  end
   puts "Please enter a letter to filter students by"
   letter = gets.delete("\n")
   i = 0
