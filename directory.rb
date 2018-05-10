@@ -19,7 +19,7 @@ end
 
 def print(students)
   puts "Please enter a letter to filter students by"
-  letter = gets.chomp
+  letter = gets.delete("\n")
   i = 0
   while i < students.length do
     if letter == students[i][:name][0] && students[i][:name].size < 12
@@ -41,11 +41,11 @@ def input_students
   #create students array
   students = []
   #get student names
-  name = gets.chomp
+  name = gets.delete("\n")
   # while the name is not empty, repeat this code
   while !name.empty? do
     puts "Please enter a Cohort for #{name}"
-    cohort = gets.chomp
+    cohort = gets.delete("\n")
     if cohort.empty?
       cohort = :november
       # if there is typo in cohort then we can create a list of months and match what user inputs and pick the closest match
@@ -58,7 +58,7 @@ def input_students
       puts "Now we have #{students.count} students"
     end
     # get another name
-    name = gets.chomp
+    name = gets.delete("\n")
   end
   #return students
   students
