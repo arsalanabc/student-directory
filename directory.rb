@@ -30,6 +30,7 @@ def process(option)
   case option
     when "1"
       input_students
+      puts "Your input has been saved"
     when "2"
       show_students
     when "3"
@@ -98,6 +99,7 @@ def save_to_file
     file.puts csv_line
   end
   file.close
+  puts "Your input has been saved to #{filename}"
 end
 
 def read_from_file(filename = 'students.csv')
@@ -107,7 +109,7 @@ def read_from_file(filename = 'students.csv')
     update_students(name, cohort)
   end
   file.close
-
+  
 end
 
 def try_to_load_file
