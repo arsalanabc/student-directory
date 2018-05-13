@@ -15,7 +15,7 @@ def print_options
   puts "1. Input the students"
   puts "2. Show the students"
   puts "3. Save the list to the file"
-  puts "4. Load the list from students.csv"
+  puts "4. Load the list from a file"
   puts "9. Exit" # 9 because we'll be adding more items
 end
 
@@ -36,7 +36,7 @@ def process(option)
     when "3"
       save_to_file
     when "4"
-      read_from_file
+      try_to_load_file
     when "9"
       exit #end the program
     else
@@ -102,19 +102,29 @@ def save_to_file
   puts "Your input has been saved to #{filename}"
 end
 
-def read_from_file(filename = 'students.csv')
+def read_from_file(filename)
+  if filename.nil?
+    puts "Please enter the filename to load."
+    filename = STDIN.gets.chomp
+    if !File.exists?(filename)
+      puts "Sorry, #{filename} doesn't exist. Loading from students.csv"
+      filename = "students.csv"
+    end
+  end
+
+
   file = File.open(filename, 'r')
   file.readlines.each do |line|
     name,cohort = line.chomp.split(',')
     update_students(name, cohort)
   end
   file.close
-  
+
 end
 
 def try_to_load_file
   file = ARGV.first # first argument from the command line
-  return read_from_file if file.nil? # get out of the method if it isn't given
+  return read_from_file(nil) if file.nil? # get out of the method if it isn't given
   if File.exists?(file) # file found
     read_from_file(file)
     puts "Loaded #{@students.count} from #{file}"
@@ -128,5 +138,5 @@ def update_students(name, cohort)
   @students << {name: name, cohort: cohort.to_sym}
 end
 
-try_to_load_file
+
 interactive_menu
