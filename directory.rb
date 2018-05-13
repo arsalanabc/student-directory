@@ -110,7 +110,7 @@ end
 
 def try_to_load_file
   file = ARGV.first # first argument from the command line
-  return if file.nil? # get out of the method if it isn't given
+  return read_from_file if file.nil? # get out of the method if it isn't given
   if File.exists?(file) # file found
     read_from_file(file)
     puts "Loaded #{@students.count} from #{file}"
