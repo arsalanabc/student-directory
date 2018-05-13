@@ -5,7 +5,7 @@ def interactive_menu
   loop do
   print_options
   # 2. read the input and save it into a variable
-  process(gets.chomp)
+  process(STDIN.gets.chomp)
   # 4. repeat from step 1
   end
 end
@@ -49,11 +49,11 @@ def input_students
   puts "To finish, just hit return twice"
 
   #get student names
-  name = gets.delete("\n")
+  name = STDIN.gets.delete("\n")
   # while the name is not empty, repeat this code
   while !name.empty? do
     puts "Please enter a Cohort for #{name}"
-    cohort = gets.delete("\n")
+    cohort = STDIN.gets.delete("\n")
     if cohort.empty?
       cohort = :november
       # if there is typo in cohort then we can create a list of months and match what user inputs and pick the closest match
@@ -66,7 +66,7 @@ def input_students
       puts "Now we have #{@students.count} students"
     end
     # get another name
-    name = gets.delete("\n")
+    name = STDIN.gets.delete("\n")
   end
 
 end
@@ -97,13 +97,27 @@ def save_to_file
   file.close
 end
 
-def read_from_file
-  file = File.open('students.csv', 'r')
+def read_from_file(filename = 'students.csv')
+  file = File.open(filename, 'r')
   file.readlines.each do |line|
     name,cohort = line.chomp.split(',')
     @students << {name: name, cohort: cohort.to_sym}
   end
-puts @students.size
+  file.close
+
 end
 
+def try_to_load_file
+  file = ARGV.first # first argument from the command line
+  return if file.nil? # get out of the method if it isn't given
+  if File.exists?(file) # file found
+    read_from_file(file)
+    puts "Loaded #{@students.count} from #{file}"
+  else
+    puts "Sorry, #{file} doesn't exist."
+    exit # quit the program
+  end
+end
+
+try_to_load_file
 interactive_menu
