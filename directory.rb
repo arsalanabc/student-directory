@@ -14,6 +14,7 @@ def print_options
   #1. print the menu and ask the user what to do
   puts "1. Input the students"
   puts "2. Show the students"
+  puts "3. Save the list to students.csv"
   puts "9. Exit" # 9 because we'll be adding more items
 end
 
@@ -30,6 +31,8 @@ def process(option)
       input_students
     when "2"
       show_students
+    when "3"
+      save_to_file
     when "9"
       exit #end the program
     else
@@ -84,13 +87,21 @@ def print_students_list
     end
     i += 1
   end
-
-
 end
 
 def print_footer
   puts "Overall, we have #{@students.count} great student".center(50)
 end
 
+def save_to_file
+  #open the csv File
+  file = File.open('students.csv', "w")
+  @students.each do |student|
+    st_data = [student[:name],student[:cohort]]
+    csv_line  = st_data.join(',')
+    file.puts csv_line
+  end
+  file.close
+end
 
 interactive_menu
