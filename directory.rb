@@ -14,7 +14,7 @@ def print_options
   #1. print the menu and ask the user what to do
   puts "1. Input the students"
   puts "2. Show the students"
-  puts "3. Save the list to students.csv"
+  puts "3. Save the list to the file"
   puts "4. Load the list from students.csv"
   puts "9. Exit" # 9 because we'll be adding more items
 end
@@ -88,8 +88,10 @@ def print_footer
 end
 
 def save_to_file
+  puts "Please enter the filename to save."
+  filename = STDIN.gets.chomp
   #open the csv File
-  file = File.open('students.csv', "w")
+  file = File.open(filename, "w")
   @students.each do |student|
     st_data = [student[:name],student[:cohort]]
     csv_line  = st_data.join(',')
