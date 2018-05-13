@@ -59,7 +59,8 @@ def input_students
       # if there is typo in cohort then we can create a list of months and match what user inputs and pick the closest match
     end
     #add student hash to the array
-    @students.push({name: name, cohort: cohort, hobbies: [], COB: :canada, height: rand(7)})
+    update_students(name, cohort)
+
     if @students.count < 2
       puts "Now we have #{@students.count} student"
     else
@@ -101,7 +102,7 @@ def read_from_file(filename = 'students.csv')
   file = File.open(filename, 'r')
   file.readlines.each do |line|
     name,cohort = line.chomp.split(',')
-    @students << {name: name, cohort: cohort.to_sym}
+    update_students(name, cohort)
   end
   file.close
 
@@ -117,6 +118,10 @@ def try_to_load_file
     puts "Sorry, #{file} doesn't exist."
     exit # quit the program
   end
+end
+
+def update_students(name, cohort)
+  @students << {name: name, cohort: cohort.to_sym}
 end
 
 try_to_load_file
