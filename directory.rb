@@ -15,6 +15,7 @@ def print_options
   puts "1. Input the students"
   puts "2. Show the students"
   puts "3. Save the list to students.csv"
+  puts "4. Load the list from students.csv"
   puts "9. Exit" # 9 because we'll be adding more items
 end
 
@@ -33,6 +34,8 @@ def process(option)
       show_students
     when "3"
       save_to_file
+    when "4"
+      read_from_file
     when "9"
       exit #end the program
     else
@@ -74,18 +77,8 @@ def print_header
 end
 
 def print_students_list
-  if @students.length == 0
-    return
-
-  end
-  puts "Please enter a letter to filter students by"
-  letter = gets.delete("\n")
-  i = 0
-  while i < @students.length do
-    if letter == @students[i][:name][0] && @students[i][:name].size < 12
-      puts "#{i}. #{@students[i][:name]} (#{@students[i][:cohort]})".center(50)
-    end
-    i += 1
+  @students.each do |student|
+    puts "#{student[:name]} (#{student[:cohort]})"
   end
 end
 
@@ -102,6 +95,15 @@ def save_to_file
     file.puts csv_line
   end
   file.close
+end
+
+def read_from_file
+  file = File.open('students.csv', 'r')
+  file.readlines.each do |line|
+    name,cohort = line.chomp.split(',')
+    @students << {name: name, cohort: cohort.to_sym}
+  end
+puts @students.size
 end
 
 interactive_menu
