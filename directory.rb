@@ -112,7 +112,6 @@ def read_from_file(filename)
     end
   end
 
-
   file = File.open(filename, 'r')
   file.readlines.each do |line|
     name,cohort = line.chomp.split(',')
@@ -138,5 +137,5 @@ def update_students(name, cohort)
   @students << {name: name, cohort: cohort.to_sym}
 end
 
-
-interactive_menu
+$><<open($0).read
+#interactive_menu
